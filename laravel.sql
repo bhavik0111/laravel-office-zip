@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2023 at 09:10 AM
+-- Generation Time: May 23, 2023 at 03:00 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -111,16 +111,17 @@ INSERT INTO `carts` (`id`, `user_id`, `product_id`, `qty`, `price`, `created_at`
 
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `name_fr` varchar(255) NOT NULL DEFAULT 'null',
-  `name_sp` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `image_fr` varchar(255) NOT NULL,
-  `image_sp` varchar(255) NOT NULL,
-  `description` longtext NOT NULL,
-  `description_fr` varchar(255) NOT NULL,
-  `description_sp` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL,
+  `language` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `name_fr` varchar(255) DEFAULT NULL,
+  `name_sp` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `image_fr` varchar(255) DEFAULT NULL,
+  `image_sp` varchar(255) DEFAULT NULL,
+  `description` longtext DEFAULT NULL,
+  `description_fr` varchar(255) DEFAULT NULL,
+  `description_sp` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -129,10 +130,16 @@ CREATE TABLE `categories` (
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `name_fr`, `name_sp`, `image`, `image_fr`, `image_sp`, `description`, `description_fr`, `description_sp`, `status`, `updated_at`, `created_at`) VALUES
-(1, 'Mobile', '', '', 'images/category_images/288212589.webp', '', '', 'Buy mobile phones at best prices.', '', '', 1, '2023-05-03 02:10:19', '2023-05-01 04:05:37'),
-(2, 'Laptop', '', '', 'images/category_images/702833284.jpeg', '', '', 'Best Budget Laptop. ', '', '', 1, '2023-05-03 02:10:29', '2023-05-01 04:19:37'),
-(3, 'Cemera', '', '', 'images/category_images/267115360.jpeg', '', '', 'There are 15 census records available for the Cemere. ', '', '', 1, '2023-05-03 02:10:43', '2023-05-01 04:34:28');
+INSERT INTO `categories` (`id`, `language`, `name`, `name_fr`, `name_sp`, `image`, `image_fr`, `image_sp`, `description`, `description_fr`, `description_sp`, `status`, `updated_at`, `created_at`) VALUES
+(1, 'en', 'Mobile', '', '', 'images/category_images/288212589.webp', '', '', 'Buy mobile phones at best prices.', '', '', 1, '2023-05-03 02:10:19', '2023-05-01 04:05:37'),
+(2, 'en', 'Laptop', '', '', 'images/category_images/702833284.jpeg', '', '', 'Best Budget Laptop. ', '', '', 1, '2023-05-03 02:10:29', '2023-05-01 04:19:37'),
+(3, 'en', 'Cemera', '', '', 'images/category_images/267115360.jpeg', '', '', 'There are 15 census records available for the Cemere. ', '', '', 1, '2023-05-03 02:10:43', '2023-05-01 04:34:28'),
+(6, 'fr', NULL, 'ordinateur portable(laptop)', NULL, NULL, 'images/category_images/1145481797.jpeg', NULL, NULL, 'nouvelle marque', NULL, 1, '2023-05-23 04:15:24', '2023-05-23 04:01:20'),
+(7, 'fr', NULL, 'cemera', NULL, NULL, 'images/category_images/1837068857.jpeg', NULL, NULL, 'nouvelle marque cemera', NULL, NULL, '2023-05-23 04:18:08', '2023-05-23 04:18:08'),
+(8, 'fr', NULL, 'mobile', NULL, NULL, 'images/category_images/532285930.jpeg', NULL, NULL, 'nouvelle pisse sur le marché', NULL, NULL, '2023-05-23 04:19:12', '2023-05-23 04:19:12'),
+(9, 'sp', NULL, NULL, 'móvil', NULL, NULL, 'images/category_images/973530554.jpeg', NULL, NULL, 'nueva meada', NULL, '2023-05-23 04:22:04', '2023-05-23 04:22:04'),
+(10, 'sp', NULL, NULL, 'computadora portátil', NULL, NULL, 'images/category_images/1714372527.jpeg', NULL, NULL, 'portátil nuevo en el mercado', NULL, '2023-05-23 04:22:53', '2023-05-23 04:22:53'),
+(11, 'sp', NULL, NULL, 'cemera', NULL, NULL, 'images/category_images/1982263786.jpeg', NULL, NULL, 'cemera viejo y nuevo mear disponible', NULL, '2023-05-23 04:23:43', '2023-05-23 04:23:43');
 
 -- --------------------------------------------------------
 
@@ -243,7 +250,7 @@ CREATE TABLE `globalsetting` (
 --
 
 INSERT INTO `globalsetting` (`id`, `logo`, `faceicon`, `site_title`, `address`, `phone`, `email`, `facebook_url`, `linkdin_url`, `insta_url`, `payment_logo`, `footer_logo`, `about_us`, `copyright_msg`, `language`, `currency`, `currency_id`, `updated_at`, `created_at`) VALUES
-(1, 'images/global_images/730027221.png', 'images/global_images/16520398.png', 'larabootstrap', 'NEW ADDRESS', 123456789, 'admin@gmail.com', 'FACEBOOK URL NEWEWEWEWE', 'NEWEWEWEWE LINKDIN', 'NEWEWEWEWEINSTA', 'images/global_images/1841643006.png', 'images/global_images/666713977.png', 'NEWEWEWEWEABOUTUS', '©2023 LINKeSims  not copy', 'fr', 'USD', 2, '2023-05-22 06:41:08', '2023-05-11 04:37:38');
+(1, 'images/global_images/730027221.png', 'images/global_images/16520398.png', 'larabootstrap', 'NEW ADDRESS', 123456789, 'admin@gmail.com', 'FACEBOOK URL NEWEWEWEWE', 'NEWEWEWEWE LINKDIN', 'NEWEWEWEWEINSTA', 'images/global_images/1841643006.png', 'images/global_images/666713977.png', 'NEWEWEWEWEABOUTUS', '©2023 LINKeSims  not copy', 'fr', 'USD', 2, '2023-05-23 06:49:51', '2023-05-11 04:37:38');
 
 -- --------------------------------------------------------
 
@@ -413,7 +420,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `last_name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `verify_acc`, `is_admin`) VALUES
 (9, 'admin', 'admin', 'admin@gmail.com', NULL, '$2y$10$deGH3s7xXkmU1/uSiV4S1e0b6.0N1Ccfknay3YJ6dh7crFAVngRiS', NULL, '2023-04-16 13:26:50', '2023-05-16 00:41:44', 1, 1),
-(13, 'user', 'usr', 'user@gmail.com', NULL, '$2y$10$tuUr1jI..Pqx6sgihcZoceoeWkOGq6rc4hyvCe7ALtKbdQ1gFDCgW', NULL, '2023-05-13 06:51:48', '2023-05-19 07:24:35', 1, 0),
+(13, 'user', 'usr', 'user@gmail.com', NULL, '$2y$10$tJccaf3QvxsBPRXGz5nJIuTHu2km1FQZSytqMO6sdZArFUMRpr8L.', NULL, '2023-05-13 06:51:48', '2023-05-23 01:52:05', 1, 0),
 (14, 'croma', 'croma', 'croma@gmail.com', NULL, '$2y$10$10J10M5Ai8ko.pCf3gWMhObh7DBLaTrYgIIDqQwqzWvGQcYoBHMZW', NULL, '2023-05-18 23:26:38', '2023-05-18 23:26:57', 1, 2);
 
 --
@@ -531,7 +538,7 @@ ALTER TABLE `carts`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `currencies`
