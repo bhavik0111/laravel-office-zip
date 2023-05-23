@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2023 at 02:52 PM
+-- Generation Time: May 23, 2023 at 09:10 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -99,8 +99,9 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `user_id`, `product_id`, `qty`, `price`, `created_at`, `updated_at`) VALUES
-(6, 9, 1, 1, 0, '2023-05-02 06:39:47', '2023-05-02 06:39:47'),
-(7, 10, 1, 1, 0, '2023-05-03 01:32:07', '2023-05-03 01:32:07');
+(10, 10, 1, 1, 0, '2023-05-13 05:40:23', '2023-05-13 05:40:23'),
+(11, 13, 1, 1, 0, '2023-05-15 00:25:43', '2023-05-15 00:25:43'),
+(19, 9, 1, 1, 0, '2023-05-18 04:21:02', '2023-05-18 04:21:02');
 
 -- --------------------------------------------------------
 
@@ -111,8 +112,14 @@ INSERT INTO `carts` (`id`, `user_id`, `product_id`, `qty`, `price`, `created_at`
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `name_fr` varchar(255) NOT NULL DEFAULT 'null',
+  `name_sp` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
+  `image_fr` varchar(255) NOT NULL,
+  `image_sp` varchar(255) NOT NULL,
   `description` longtext NOT NULL,
+  `description_fr` varchar(255) NOT NULL,
+  `description_sp` varchar(255) NOT NULL,
   `status` int(11) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -122,10 +129,36 @@ CREATE TABLE `categories` (
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `image`, `description`, `status`, `updated_at`, `created_at`) VALUES
-(1, 'Mobile', 'images/category_images/288212589.webp', 'Buy mobile phones at best prices. Flipkart is the right platform for you to look for a mobile phone that fits your budget, technical and design requirements ..', 1, '2023-05-03 02:10:19', '2023-05-01 04:05:37'),
-(2, 'Laptop', 'images/category_images/702833284.jpeg', 'Best Budget Laptop. Lenovo Chromebook C340 15 (2020) ... Best Budget Multimedia Laptop. Lenovo Chromebook Duet 5 (2021) ...', 1, '2023-05-03 02:10:29', '2023-05-01 04:19:37'),
-(3, 'Cemera', 'images/category_images/267115360.jpeg', 'There are 15 census records available for the last name Cemere. Like a window into their day-to-day life, Cemere census records can tell you where and how your ...', 1, '2023-05-03 02:10:43', '2023-05-01 04:34:28');
+INSERT INTO `categories` (`id`, `name`, `name_fr`, `name_sp`, `image`, `image_fr`, `image_sp`, `description`, `description_fr`, `description_sp`, `status`, `updated_at`, `created_at`) VALUES
+(1, 'Mobile', '', '', 'images/category_images/288212589.webp', '', '', 'Buy mobile phones at best prices.', '', '', 1, '2023-05-03 02:10:19', '2023-05-01 04:05:37'),
+(2, 'Laptop', '', '', 'images/category_images/702833284.jpeg', '', '', 'Best Budget Laptop. ', '', '', 1, '2023-05-03 02:10:29', '2023-05-01 04:19:37'),
+(3, 'Cemera', '', '', 'images/category_images/267115360.jpeg', '', '', 'There are 15 census records available for the Cemere. ', '', '', 1, '2023-05-03 02:10:43', '2023-05-01 04:34:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `currencies`
+--
+
+CREATE TABLE `currencies` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `code` varchar(255) NOT NULL DEFAULT 'INR',
+  `symbole` varchar(255) NOT NULL,
+  `status` tinyint(4) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `currencies`
+--
+
+INSERT INTO `currencies` (`id`, `name`, `code`, `symbole`, `status`, `updated_at`, `created_at`) VALUES
+(1, 'Indian rupee', 'INR', '₹', 1, '2023-05-16 06:52:47', '2023-05-16 05:02:55'),
+(2, 'United States Dollar', 'USD', '$', 1, '2023-05-18 23:30:15', '2023-05-16 05:06:22'),
+(3, 'Euro', 'EUR', '€', 1, '2023-05-16 07:01:18', '2023-05-16 05:07:14'),
+(4, 'New Zealand Dollar', 'NZD', 'NZ$', 1, '2023-05-16 05:22:30', '2023-05-16 05:08:22');
 
 -- --------------------------------------------------------
 
@@ -198,6 +231,9 @@ CREATE TABLE `globalsetting` (
   `footer_logo` varchar(255) NOT NULL,
   `about_us` longtext NOT NULL,
   `copyright_msg` longtext NOT NULL,
+  `language` varchar(255) NOT NULL,
+  `currency` varchar(255) NOT NULL DEFAULT 'IND',
+  `currency_id` int(11) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -206,8 +242,32 @@ CREATE TABLE `globalsetting` (
 -- Dumping data for table `globalsetting`
 --
 
-INSERT INTO `globalsetting` (`id`, `logo`, `faceicon`, `site_title`, `address`, `phone`, `email`, `facebook_url`, `linkdin_url`, `insta_url`, `payment_logo`, `footer_logo`, `about_us`, `copyright_msg`, `updated_at`, `created_at`) VALUES
-(1, 'images/global_images/730027221.png', 'images/global_images/16520398.png', 'larabootstrap', 'NEW ADDRESS', 123456789, 'admin@gmail.com', 'FACEBOOK URL NEWEWEWEWE', 'NEWEWEWEWE LINKDIN', 'NEWEWEWEWEINSTA', 'images/global_images/1841643006.png', 'images/global_images/666713977.png', 'NEWEWEWEWEABOUTUS', '©2023 LINKeSims  not copy', '2023-05-12 00:52:39', '2023-05-11 04:37:38');
+INSERT INTO `globalsetting` (`id`, `logo`, `faceicon`, `site_title`, `address`, `phone`, `email`, `facebook_url`, `linkdin_url`, `insta_url`, `payment_logo`, `footer_logo`, `about_us`, `copyright_msg`, `language`, `currency`, `currency_id`, `updated_at`, `created_at`) VALUES
+(1, 'images/global_images/730027221.png', 'images/global_images/16520398.png', 'larabootstrap', 'NEW ADDRESS', 123456789, 'admin@gmail.com', 'FACEBOOK URL NEWEWEWEWE', 'NEWEWEWEWE LINKDIN', 'NEWEWEWEWEINSTA', 'images/global_images/1841643006.png', 'images/global_images/666713977.png', 'NEWEWEWEWEABOUTUS', '©2023 LINKeSims  not copy', 'fr', 'USD', 2, '2023-05-22 06:41:08', '2023-05-11 04:37:38');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `languages`
+--
+
+CREATE TABLE `languages` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `languages`
+--
+
+INSERT INTO `languages` (`id`, `name`, `code`, `status`, `updated_at`, `created_at`) VALUES
+(5, 'English', 'en', '1', '2023-05-19 01:45:28', '2023-05-19 01:38:38'),
+(6, 'French', 'fr', '1', '2023-05-21 23:18:16', '2023-05-19 01:45:55'),
+(7, 'Spanish', 'sp', '1', '2023-05-21 23:19:29', '2023-05-19 01:46:11');
 
 -- --------------------------------------------------------
 
@@ -224,8 +284,9 @@ CREATE TABLE `order_master` (
   `email` varchar(255) NOT NULL,
   `shipping_address` longtext NOT NULL,
   `total` varchar(255) NOT NULL,
+  `currency_id` int(11) NOT NULL,
   `order_date` date NOT NULL DEFAULT current_timestamp(),
-  `order_status` varchar(11) NOT NULL,
+  `order_status` varchar(11) NOT NULL DEFAULT '2',
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -234,8 +295,9 @@ CREATE TABLE `order_master` (
 -- Dumping data for table `order_master`
 --
 
-INSERT INTO `order_master` (`order_id`, `user_id`, `first_name`, `last_name`, `phone`, `email`, `shipping_address`, `total`, `order_date`, `order_status`, `updated_at`, `created_at`) VALUES
-(1, 9, 'croma', 'mall', 1234567890, 'croma@gmail.com', 'rajkot', '77000', '2023-05-02', '2', '2023-05-02 06:30:29', '2023-05-02 06:30:29');
+INSERT INTO `order_master` (`order_id`, `user_id`, `first_name`, `last_name`, `phone`, `email`, `shipping_address`, `total`, `currency_id`, `order_date`, `order_status`, `updated_at`, `created_at`) VALUES
+(7, 9, 'euro', 'euro', 1234567890, 'admin@gmail.com', 'euro', '15000', 3, '2023-05-18', '2', '2023-05-18 04:13:22', '2023-05-18 04:13:22'),
+(8, 9, 'repee', 'repee', 12345678, 'admin@gmail.com', 'repee', '15000', 1, '2023-05-18', '2', '2023-05-18 04:19:39', '2023-05-18 04:19:39');
 
 -- --------------------------------------------------------
 
@@ -249,6 +311,7 @@ CREATE TABLE `order_products` (
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `price` int(11) NOT NULL,
+  `currency_id` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
@@ -258,9 +321,9 @@ CREATE TABLE `order_products` (
 -- Dumping data for table `order_products`
 --
 
-INSERT INTO `order_products` (`order_details_id`, `order_id`, `user_id`, `product_id`, `price`, `qty`, `created_at`, `updated_at`) VALUES
-(1, 1, 9, 1, 15000, 1, '2023-05-02 06:30:29', '2023-05-02 06:30:29'),
-(2, 1, 9, 2, 62000, 1, '2023-05-02 06:30:29', '2023-05-02 06:30:29');
+INSERT INTO `order_products` (`order_details_id`, `order_id`, `user_id`, `product_id`, `price`, `currency_id`, `qty`, `created_at`, `updated_at`) VALUES
+(8, 7, 9, 1, 15000, 3, 1, '2023-05-18 04:13:22', '2023-05-18 04:13:22'),
+(9, 8, 9, 1, 15000, 1, 1, '2023-05-18 04:19:39', '2023-05-18 04:19:39');
 
 -- --------------------------------------------------------
 
@@ -321,7 +384,8 @@ CREATE TABLE `products_addfeatures` (
 INSERT INTO `products_addfeatures` (`id`, `product_id`, `title`, `description`, `updated_at`, `created_at`) VALUES
 (9, 1, 'TVTVTV', 'as many brands tv available', '2023-05-03 02:09:39', '2023-05-03 02:09:39'),
 (10, 2, 'new', 'brand available', '2023-05-03 02:09:51', '2023-05-03 02:09:51'),
-(11, 3, 'all brand', 'many cemera \'s many brands in our store', '2023-05-03 02:10:03', '2023-05-03 02:10:03');
+(11, 3, 'all brand', 'many cemera \'s many brands in our store', '2023-05-03 02:10:03', '2023-05-03 02:10:03'),
+(12, 4, 'samsung s11', '<p>new piss in market</p>', '2023-05-12 23:40:31', '2023-05-12 23:40:31');
 
 -- --------------------------------------------------------
 
@@ -348,9 +412,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `last_name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `verify_acc`, `is_admin`) VALUES
-(9, 'admin', 'admin', 'admin@gmail.com', NULL, '$2y$10$hjnA/9q86aKGhMMdNe/WtuSgxbq/mMehKcu0m7/l4K9h0pVQKRlI6', NULL, '2023-04-16 13:26:50', '2023-05-03 06:00:17', 1, 1),
-(10, 'user', 'user', 'user@gmail.com', NULL, '$2y$10$sSpxaNnOxMMFUjmMcnxmHOJZND5Wha9TPvaAL8hJ6.oQZH6skSqOS', NULL, '2023-04-29 06:02:09', '2023-05-05 01:51:32', 0, 0),
-(11, 'croma', 'mall', 'croma@gmail.com', NULL, '$2y$10$ZBy2ZXphHYIKIBmPhvK7keUBu4OrG1sbxK2aUlDUhy2QqlIsuA.Fq', NULL, '2023-05-01 04:00:44', '2023-05-02 23:05:09', 0, 0);
+(9, 'admin', 'admin', 'admin@gmail.com', NULL, '$2y$10$deGH3s7xXkmU1/uSiV4S1e0b6.0N1Ccfknay3YJ6dh7crFAVngRiS', NULL, '2023-04-16 13:26:50', '2023-05-16 00:41:44', 1, 1),
+(13, 'user', 'usr', 'user@gmail.com', NULL, '$2y$10$tuUr1jI..Pqx6sgihcZoceoeWkOGq6rc4hyvCe7ALtKbdQ1gFDCgW', NULL, '2023-05-13 06:51:48', '2023-05-19 07:24:35', 1, 0),
+(14, 'croma', 'croma', 'croma@gmail.com', NULL, '$2y$10$10J10M5Ai8ko.pCf3gWMhObh7DBLaTrYgIIDqQwqzWvGQcYoBHMZW', NULL, '2023-05-18 23:26:38', '2023-05-18 23:26:57', 1, 2);
 
 --
 -- Indexes for dumped tables
@@ -381,6 +445,12 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `currencies`
+--
+ALTER TABLE `currencies`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `faqs`
 --
 ALTER TABLE `faqs`
@@ -396,6 +466,12 @@ ALTER TABLE `faqs_category`
 -- Indexes for table `globalsetting`
 --
 ALTER TABLE `globalsetting`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `languages`
+--
+ALTER TABLE `languages`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -449,13 +525,19 @@ ALTER TABLE `blog_category`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `currencies`
+--
+ALTER TABLE `currencies`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `faqs`
@@ -476,16 +558,22 @@ ALTER TABLE `globalsetting`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `languages`
+--
+ALTER TABLE `languages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `order_master`
 --
 ALTER TABLE `order_master`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `order_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `order_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -497,13 +585,13 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `products_addfeatures`
 --
 ALTER TABLE `products_addfeatures`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
